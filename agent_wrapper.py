@@ -32,6 +32,8 @@ def show_progress(rewards_batch: torch.Tensor, log: list,
     Return:
         None
     """
+    if not isinstance(rewards_batch, torch.Tensor):
+        rewards_batch = torch.tensor(rewards_batch)
 
     mean_reward = rewards_batch.mean() # средняя награда
     threshold = torch.quantile(rewards_batch, percentile / 100).item() # порог награды
@@ -138,6 +140,7 @@ class GYMAgentWrapper():
         Return:
             tuple: (elite_states, elite_actions) - отобранные состояния и действия.
         """
+
         if not isinstance(rewards_batch, torch.Tensor):
             rewards_batch = torch.tensor(rewards_batch)
 
@@ -159,11 +162,9 @@ class GYMAgentWrapper():
             mask = (rewards_batch >= reward_threshold)
         
         elite_states = np.concatenate([
-            np.array(states_batch[i]) for i in range(len(states_batch)) if mask[i]
-        ])
+            np.array(states_batch[i]) for i in range(len(states_batch)) if mask[i]])
         elite_actions = np.concatenate([
-            np.array(actions_batch[i]) for i in range(len(actions_batch)) if mask[i]
-        ])
+            np.array(actions_batch[i]) for i in range(len(actions_batch)) if mask[i]])
 
         return elite_states, elite_actions
 
