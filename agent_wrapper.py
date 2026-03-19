@@ -171,7 +171,7 @@ class GYMAgentWrapper():
 
     @staticmethod
     def generate_session_wrapper(agent, session_params, env_name):
-        env = gym.make(env_name, agent.session_params.max_step)
+        env = gym.make(env_name, session_params.max_step)
         res = agent._generate_session(
             other_env=env, session_params=session_params)
         del env
