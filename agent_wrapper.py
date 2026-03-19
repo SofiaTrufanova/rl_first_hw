@@ -73,10 +73,9 @@ def show_progress(rewards_batch: torch.Tensor, log: list,
     plt.title('Распределение ревардов за сессию')
     plt.legend()
 
+    clear_output(True)
                     
     plt.show()
-    clear_output(True)
-
 
 @dataclass
 class session_params():
