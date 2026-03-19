@@ -386,8 +386,7 @@ class GYMAgentWrapper():
                     # смотри joblib.Parallel и joblib.delayed
                     # настоятельно рекомендуем использовать generate_session_wrapper staticmethod для возможности сереализации процесса, иначе велика вероятность что код не запустится
                     ##########################
-                    result = Parallel(n_jobs=n_workers)(delayed(GYMAgentWrapper.generate_session_wrapper)(self, self.session_params, self.gym_env.spec.id) for _ in range(self.train_agent_params.session_quantity))
-                        # HERE
+                    result = Parallel(n_jobs=n_workers)(delayed(self.generate_session_wrapper)(self, self.session_params, self.gym_env.spec.id) for _ in range(self.train_agent_params.session_quantity))
                     sessions.extend(
                         result
                     )
